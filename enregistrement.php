@@ -1,5 +1,9 @@
 <?php
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Headers: *");
+header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
 include('connexion.php');
+
 $method = $_SERVER['REQUEST_METHOD'];
 $date = date('Y-m-d H:i:s');
 
@@ -19,7 +23,7 @@ $plaque = $parsedData['plaque'];
         } catch(Exception $e) {
             
             http_response_code(500) ; 
-            echo ("Erreur lors de l'enregistrement");
+            echo ("Erreur lors de l'enregistrement". $e->getMessage());
         }
     }else
     {

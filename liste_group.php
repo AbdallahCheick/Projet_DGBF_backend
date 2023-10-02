@@ -1,11 +1,23 @@
 <?php
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Headers: *");
+header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
 include('connexion.php');
 
-$sql = "SELECT DATE_FORMAT(date, '%d-%m-%Y') AS date_fr, DATE_FORMAT(date, '%H') AS heure,
-        COUNT(*) AS nombre_vehicules
-        FROM parking
-        GROUP BY DATE_FORMAT(date, '%d-%m-%Y'), DATE_FORMAT(date, '%H')
-        ORDER BY DATE_FORMAT(date, '%Y-%m-%d'), DATE_FORMAT(date, '%H')";
+$sql = "SELECT 
+    DATE_FORMAT(date, '%d-%m-%Y') AS date_fr, 
+    DATE_FORMAT(date, '%H') AS heure,
+    COUNT(*) AS nombre_vehicules
+FROM parking
+GROUP BY 
+    DATE_FORMAT(date, '%Y-%m-%d'),
+    DATE_FORMAT(date, '%d-%m-%Y'), 
+    DATE_FORMAT(date, '%H')
+ORDER BY 
+    DATE_FORMAT(date, '%Y-%m-%d'), 
+    DATE_FORMAT(date, '%H');
+";
+
 
 $resultat = $connexion->query($sql);
 
